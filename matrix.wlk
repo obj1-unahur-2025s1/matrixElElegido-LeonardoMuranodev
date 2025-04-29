@@ -3,12 +3,32 @@ object nave {
 
     //Consultas
     method cantPasajeros() = pasajeros.size()
+    method estaElElegido() = pasajeros.any({p => p.esElElejido()})
+    method mayorVitalidad(){
+        return pasajeros.max({pasajero => pasajero.vitalidad()})
+    } 
 
-    //Indicaciones
-    method agregar(unPasajero){
-        pasajeros.add(unPasajero)
+    method menorVitalidad(){
+        return pasajeros.min({pasajero => pasajero.vitalidad()})
     }
 
+    method estaEquilibrada(){
+        return self.mayorVitalidad().vitalidad() < self.menorVitalidad().vitalidad()* 2
+    }
+
+    method noElejidos() {
+      return pasajeros.filter({p => !p.esElElejido()})
+    }
+
+    //Indicaciones
+    method chocar() {
+        pasajeros.forEach({p => p.salta()})
+        pasajeros.clear()
+    }
+
+    method acelerar(){
+        self.noElejidos().forEach({p => p.salta()})
+    }
 }
 
 
@@ -49,5 +69,6 @@ object trinity {
     method esElElejido() = false
 
     //Indicaciones
+    //Este es un metodo que no hace nada, un metodo asi: method salta() es un metodo abstrato
     method salta(){}
 }
